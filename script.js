@@ -6,14 +6,15 @@ const form = document.getElementById('form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
 
-const dummyTransactions = [
-    { id: 1, text: 'Flower', amount: -20 },
-    { id: 2, text: 'Salary', amount: 300 },
-    { id: 3, text: 'Book', amount: -10 },
-    { id: 4, text: 'Camera', amount: 150 },
-];
+const localStorageTransactions = JSON.parse(
+    localStorage.getItem('transactions')
+);
 
-let transactions = dummyTransactions;
+// If there is a stored transactions array = load, else = initialize
+let transactions =
+    localStorage.getItem('transactions') !== null
+        ? localStorageTransactions
+        : [];
 
 const addTransaction = (e) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ const addTransaction = (e) => {
         transactions.push(transaction);
         addTransactionDOM(transaction);
         updateValues();
+        updateLocalStorage();
         text.value = '';
         amount.value = '';
     }
@@ -62,7 +64,7 @@ const addTransactionDOM = (transaction) => {
 const removeTransaction = (id) => {
     // Filter out the transaction with id in question
     transactions = transactions.filter((trans) => trans.id !== id);
-
+    updateLocalStorage();
     init();
 };
 
@@ -88,6 +90,12 @@ const updateValues = () => {
     money_minus.innerText = `${expense}`;
 };
 
+// save current runtime list to LS
+const updateLocalStorage = () => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+};
+
+// clear the mutable DOM elements, load saved transactions into DOM & update totals
 const init = () => {
     list.innerHTML = '';
 
