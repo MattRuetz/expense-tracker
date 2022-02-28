@@ -21,7 +21,13 @@ body {
 
 h1 {
     letter-spacing: 1px;
-    margin: 10px 0;
+    margin: 0;
+}
+
+h2 {
+    margin: 50px;
+    text-decoration: underline;
+    font-size: xx-large;
 }
 
 h3 {
@@ -84,7 +90,17 @@ input[type='number'] {
 }
 
 .btn {
-    background-color: #9c88ff;
+    background: #dd3e54; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to right,
+        #6be585,
+        #dd3e54
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #6be585,
+        #dd3e54
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     box-shadow: var(--box-shadow);
     color: #fff;
     border: 0;
@@ -98,6 +114,16 @@ input[type='number'] {
 .btn:focus,
 .delete-btn:focus {
     outline: 0;
+}
+
+.btn:hover {
+    filter: brightness(120%);
+}
+
+.btn:active {
+    filter: brightness(80%);
+    transform: translateY(3px);
+    box-shadow: none;
 }
 
 .list {
